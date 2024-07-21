@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm Clock</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  html,body{
+    margin:0;
+    height: 100%;
+  }
+  body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #582b8f;
+  }
+  .card-body{
+    height:70vh;
+     background-color: black;
+     border-radius: 0.2rem;
+     color:#f0edf2;
+     border:none;
+     width:100%;
+
+    }
+    .card{
+      background-color:black;
+      position: relative;
+    }
+    .upper{
+      display: flex;
+      justify-content: space-between;
+    }
+    #threeDots{
+      background-color: transparent;
+      color:#f0edf2;
+      border:none;
+    }
+    #add{
+      background-color: transparent;
+      border: none;
+      background-color: rgb(224, 224, 33);
+      border-radius: 50%;
+      width:7vw;
+      height:7vh;
+      position:absolute;
+      bottom:-20px;
+      right:120px;
+    }
+    .card-body1{
+      background-color: #582b8f;
+      border-radius: 0.6rem;
+      width:15vw;
+      height:16vh;
+      margin-bottom: 10px;
+    }
+    .delete{
+      display: flex;
+      flex-direction: column;
+    }
+    #deleteButton{
+      display:none;
+    }
+</style>
+</head>
+<body>
+    <div id="cardContainer" class="row">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+
+          <div class="upper">
+            <h5 class="card-title">Alarm</h5>
+            <div class="delete">
+              <button onclick="threeDots()" id="threeDots"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+              <button type="button" class="btn btn-light" id="deleteButton" onclick="delete1()">Delete All</button>
+            </div>
+          </div>
+
+          <div class="row1" id="cardContainer1">
+            <!-- Alarm cards will be loaded here -->
+          </div>
+
+        </div>
+        <button onclick="location.href='index1.html'" id="add"><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+
+    <script>
+        function loadAlarms() {
+            const alarms = JSON.parse(localStorage.getItem('alarms')) || [];
+            const cardContainer1 = document.getElementById('cardContainer1');
+            cardContainer1.innerHTML = '';
+            alarms.forEach(alarm => {
+                const alarmCard = document.createElement('div');
+                alarmCard.classList.add('card-body1');
+                alarmCard.innerHTML = `
+                    <h5 class="card-title">${alarm.name}</h5>
+                    <h5 class="card-title">${alarm.time}</h5>
+                `;
+                cardContainer1.appendChild(alarmCard);
+            });
+        }
+
+        function threeDots() {
+            // Toggle functionality for ellipsis button
+            let db=document.getElementById("deleteButton");
+            deleteButton.style.display = deleteButton.style.display === 'none' ? 'block' : 'none';
+        }
+        function delete1(){
+       cardContainer1.innerHTML='';
+       localStorage.removeItem('alarms');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAlarms);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
